@@ -12,6 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = {"북마크"})
 @RequiredArgsConstructor
 @RestController
+/*
+@RestController
+Json형태로 객체 데이터를 반환/ 메소드마다 ResponseBody를 입력 해 줄 필요가 없음
+1.Client는 URL형식으로 웹 서비스에 요청
+2.Mapping되는 Handler와 그 Type을 찾는 DispatcherServlet이 요청을 인터셉트
+3.RestController는 해당 요청을 처리하고 데이터를 반환
+
+@RequiredArgsConstructor
+초기화 되지 않은 final 필드나, @NonNull이 붙은 필드에 대해 생성자를 생성
+의존성 주입 편의성을 위해서 사용
+ */
 public class BookmarkController {
 
     private final BookmarkService bookmarkService;

@@ -41,17 +41,30 @@ public class BookmarkService {
         );
 
         //쿼리
+                /*
+              Optional -> Null인지 아닌지 확실 한 수 없는 객체를 담고 있을 경우 작성
+        ofNulable은 null이 넘어 올 경우 Optional.empty()와 동일하게 비어 있는 Optional 객체를 얻어옴.
+        해당객체가 null인지 아닌지 모르기때문에 empty대신 ofNullable을 사용함.
+        즉, project가 있으면 그냥 꺼내면 되지만 만약 Null이면 비어있는 Optional 객체를 얻어와 연결된 프로젝트가 없다고 뜸
+         */
         Project connectedProject = Optional.ofNullable(note.getProject()).orElseThrow(
                 () -> new ApiRequestException("연결된 프로젝트가 없습니다.")
         );
 
         //쿼리
+
         UserProjectMapping userProjectMapping = userProjectMappingRepository.findByUserAndProject(user, connectedProject)
                 .orElseThrow(
                         () -> new ApiRequestException("user와 project mapping을 찾지 못했습니다.")
                 );
 
         //유저가 북마크를 했다는 레코드
+          /*
+        orElse(Value) -> Value가 메모리 상에 존재한다고 가정하므로 Value가 리턴값이라면 Optional 내부 값이 null이든 아니든 함수를 실행시켜 Value값을 가져 온다.
+                        한마디로 객체 그대로 return한다.
+        orElseGet -> Supplier 메소드를 받아서 return
+        **Supplier : 함수적 인터페이스 API, 매개값은 없고 리턴값만으로 람다식을 사용 할 수 있다.
+         */
         Bookmark bookmark = bookmarkRepository.findByUserAndNote(user, note)
                 .orElseGet(() -> Bookmark.builder()
                         .user(user)
@@ -86,9 +99,14 @@ public class BookmarkService {
                 );
 
         // 유저가 북마크를 했다는 레코드드
+        /*
+        ifPresent : null을 확인하는 if문을 줄이는데 사용
+                   특정 결과를 반환하는 대신 Optional 객체가 감싸고 있는 값이 존재할 경우에만 실행될 로직을 함수형 인자로 넘길 수 있다.
+         */
         Optional<Bookmark> bookmark = bookmarkRepository.findByUserAndNote(user, note);
 
         bookmark.ifPresent(bookmarkRepository::delete);
+        //= bookmark.ifPresent(bookmarkRepository.delete());
 
     }
 
