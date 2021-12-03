@@ -63,6 +63,7 @@ public class BookmarkService {
         orElse(Value) -> Value가 메모리 상에 존재한다고 가정하므로 Value가 리턴값이라면 Optional 내부 값이 null이든 아니든 함수를 실행시켜 Value값을 가져 온다.
                         한마디로 객체 그대로 return한다.
         orElseGet -> Supplier 메소드를 받아서 return
+
         **Supplier : 함수적 인터페이스 API, 매개값은 없고 리턴값만으로 람다식을 사용 할 수 있다.
          */
         Bookmark bookmark = bookmarkRepository.findByUserAndNote(user, note)
@@ -102,12 +103,13 @@ public class BookmarkService {
         /*
         ifPresent : null을 확인하는 if문을 줄이는데 사용
                    특정 결과를 반환하는 대신 Optional 객체가 감싸고 있는 값이 존재할 경우에만 실행될 로직을 함수형 인자로 넘길 수 있다.
+                   null값 인경우 default값 반환
          */
         Optional<Bookmark> bookmark = bookmarkRepository.findByUserAndNote(user, note);
 
         bookmark.ifPresent(bookmarkRepository::delete);
         //= bookmark.ifPresent(bookmarkRepository.delete());
-
+        //
     }
 
     public NoteSearchInBookmarkResponseDto searchNoteInBookmarks(User currentUser, String rawKeyword){
