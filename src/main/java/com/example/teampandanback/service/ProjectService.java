@@ -37,6 +37,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
+/*
+
+ */
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
@@ -70,6 +73,9 @@ public class ProjectService {
                 userProjectMappingRepository.findCrewDetailForProjectList(projectIdList);
 
         // 유저가 참여하고 있는 프로젝트들의 크루정보 정렬
+        /*
+
+         */
         Map<Long, ArrayList<CrewDetailForProjectListDto>> crewMap = new HashMap<>();
         projectIdList.forEach(projectId -> crewMap.put(projectId, new ArrayList<>()));
 
@@ -333,8 +339,6 @@ public class ProjectService {
             throw new ApiRequestException("유저가 이미 가이드 프로젝트나, 아무 프로젝트에 참여 했습니다.");
         }
 
-
-
         //=====================================================================================================================================================
         //프로젝트 2 생성
         Project project2 = projectRepository.save(Project.builder()
@@ -437,7 +441,6 @@ public class ProjectService {
                 .step(Step.STORAGE.toString())
                 .title("접합 부위 적을 수록 좋다")
                 .build(), currentUser);
-
 
         //프로젝트 3 생성
 
@@ -548,17 +551,6 @@ public class ProjectService {
                 .step(Step.STORAGE.toString())
                 .title("\uD83D\uDDFB 한라산 등반 할까?")
                 .build(), currentUser);
-
-
-
-
-
-
-
-
-
-
-
 
         // 프로젝트 생성하고 저장
         Project project = projectRepository.save(Project.builder()
