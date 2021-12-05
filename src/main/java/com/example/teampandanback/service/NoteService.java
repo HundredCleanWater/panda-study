@@ -529,7 +529,8 @@ public class NoteService {
 
         System.out.println(">>>락 매니저 시작<<<");
 //        lockManagerService.preProcess(noteId);
-
+        //https://hundredcleanwater.notion.site/Java-Thread-97a86b394fef41c6bef4dfbf4bccfc81
+        //https://hundredcleanwater.notion.site/Interrupt-d70873e4d73a49f09904ebda3a58c3da
         while(true){
             System.out.println("자러감");
             Thread.sleep(7000);
